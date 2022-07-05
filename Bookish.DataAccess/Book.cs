@@ -17,6 +17,15 @@
         public Book()
         {
         }
+        
+        public Book(string bookName, string bookAuthor, int noCopies, string isbn, int bookType)
+        {
+            this.BookName = bookName;
+            this.BookAuthor = bookAuthor;
+            this.NoCopies = noCopies;
+            this.ISBN = isbn;
+            this.BookType = bookType;
+        }
 
         public Book(int bookID, string bookName, string bookAuthor, int noCopies, string isbn, int bookType)
         {
