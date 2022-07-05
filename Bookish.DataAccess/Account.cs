@@ -12,5 +12,11 @@
         {
             return AccountPassword;
         }
+
+        public Account(string name, string pass)
+        {
+            AccountName = name;
+            AccountPassword = pass;
+        }
     }
 }

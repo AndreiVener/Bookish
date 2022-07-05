@@ -21,5 +21,17 @@ namespace Bookish.DataAccess
 
             return accounts.ToList();
         }
+
+        public bool AddUser(string name, string pass)
+        {
+            Account account = new Account(name, pass);
+            string sql = "INSERT INTO bookish.dbo.Accounts (AccountName,AccountPassword) Values (@AccountName,@AccountPassword)";
+            db.Execute(sql, new
+            {
+                AccountName = name,
+                AccountPassword = pass
+            });
+            return true;
+        }
     }
 }
