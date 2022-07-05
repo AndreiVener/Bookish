@@ -9,3 +9,14 @@ C:\Work\BookishProj\BookishProj\obj\Debug\BookishProj.csproj.CoreCompileInputs.c
 C:\Work\BookishProj\BookishProj\obj\Debug\BookishProj.csproj.CopyComplete
 C:\Work\BookishProj\BookishProj\obj\Debug\BookishProj.exe
 C:\Work\BookishProj\BookishProj\obj\Debug\BookishProj.pdb
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\bin\Debug\BookishProj.exe
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\bin\Debug\BookishProj.pdb
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\bin\Debug\Bookish.DataAccess.dll
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\bin\Debug\Dapper.dll
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\bin\Debug\Bookish.DataAccess.pdb
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\bin\Debug\Dapper.xml
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\obj\Debug\BookishProj.csproj.AssemblyReference.cache
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\obj\Debug\BookishProj.csproj.CoreCompileInputs.cache
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\obj\Debug\BookishProj.csproj.CopyComplete
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\obj\Debug\BookishProj.exe
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\BookishProj\obj\Debug\BookishProj.pdb

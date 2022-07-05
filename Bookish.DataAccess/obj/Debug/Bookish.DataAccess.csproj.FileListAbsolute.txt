@@ -7,3 +7,12 @@ C:\Work\BookishProj\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.csproj.CoreC
 C:\Work\BookishProj\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.csproj.CopyComplete
 C:\Work\BookishProj\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.dll
 C:\Work\BookishProj\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.pdb
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\bin\Debug\Bookish.DataAccess.dll
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\bin\Debug\Bookish.DataAccess.pdb
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\bin\Debug\Dapper.dll
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\bin\Debug\Dapper.xml
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.csproj.AssemblyReference.cache
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.csproj.CoreCompileInputs.cache
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.csproj.CopyComplete
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.dll
+C:\Users\AndHos\RiderProjects\BookishVener\Bookish\Bookish.DataAccess\obj\Debug\Bookish.DataAccess.pdb
