@@ -13,6 +13,10 @@
             return AccountPassword;
         }
 
+        public Account()
+        {
+        }
+
         public Account(string name, string pass)
         {
             AccountName = name;
