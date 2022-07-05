@@ -12,7 +12,7 @@ namespace Bookish.DataAccess
         
         public Database()
         {
-            db = new SqlConnection("Server=localhost;User Id=bookishService; Password=1234;");
+            db = new SqlConnection("Server=tcp:SEASLUG,1433;User Id=bookishService; Password=abcd;");
         }
 
         public List<Account> GetAllBooks()
