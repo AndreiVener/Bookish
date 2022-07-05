@@ -22,7 +22,7 @@ namespace Bookish.DataAccess
             return accounts.ToList();
         }
 
-        public bool AddUser(Account account)
+        public void AddUser(Account account)
         {
             string sql = "INSERT INTO bookish.dbo.Accounts (AccountName,AccountPassword) Values (@AccountName,@AccountPassword)";
             db.Execute(sql, new
@@ -30,7 +30,18 @@ namespace Bookish.DataAccess
                 AccountName = account.AccountName,
                 AccountPassword = account.AccountPassword
             });
-            return true;
         }
+
+        public List<Account> findUsers(string name)
+        {
+            var sqlFindAccountsName = " SELECT * FROM bookish.dbo.Accounts Where AccountName = @AccountName";
+            List<Account> foundUsers = (List<Account>)db.Query<Account>(sqlFindAccountsName, new
+            {
+                AccountName = name
+            });
+            return foundUsers;
+        }
+
+
     }
 }

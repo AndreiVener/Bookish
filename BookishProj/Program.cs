@@ -12,16 +12,13 @@ namespace Bookish.ConsoleApp
         public static void Main(string[] args)
         {
             Database db = new Database();
-            Account account = new Account("tessttt","bubugaga");
-            
-            db.AddUser(account);
-            var res = db.GetAllBooks();
-            foreach (var account1 in res)
+            var foundUsers = db.findUsers("andrei");
+            foreach (var user in foundUsers)
             {
-                Console.WriteLine(account1.AccountName);
+                Console.WriteLine(user.AccountName + " -> " + user.AccountPassword);
             }
-            
-            
+
+
 
         }
     }
