@@ -153,5 +153,12 @@ namespace Bookish.DataAccess
 
             return true;
         }
+
+        public int GetNumberOfPages()
+        {
+            var sql = "SELECT COUNT(*) FROM bookish.dbo.books";
+            List<int> numberOfPages = (List<int>)_db.Query<int>(sql);
+            return (int)Math.Ceiling((float)numberOfPages.First()/5);
+        }
     }
 }

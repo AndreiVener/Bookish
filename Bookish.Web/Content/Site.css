@@ -22,3 +22,8 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+#login_form{
+    padding: 3rem;
+}

@@ -1,0 +1,54 @@
+﻿@model Bookish.Web.Models.BooksModel
+<div>
+
+    <p>Books</p>
+    
+    <form method="post" action="Books">Search:<input name="search" type="text"/><button type="submit">Search</button></form>
+    
+    <ul>
+        
+        @foreach (var book in Model.books)
+        {
+            <li style="background-color: springgreen; border-radius: 10px; margin: 2rem; padding: 1rem;">
+                @book.BookName
+                written by
+                @book.BookAuthor
+                | no of copies:
+                @book.NoCopies
+
+                <form id="@book.BookID">
+
+                    <button type="submit">
+                        Borrow
+                    </button>
+
+                </form>
+            </li>
+        }
+        
+    </ul>
+    
+    @if (Model.atPage > 0)
+    {
+        <form method="post" action="Books3" id="prev">
+            @Html.HiddenFor(m => m.atPage, new {Value = Model.atPage - 1})
+            @Html.HiddenFor(m => m.numberOfPages, new {Value = Model.numberOfPages})
+            <button type="submit">Previous</button>
+        </form>
+    }
+    
+    
+    @Model.atPage
+    @Model.numberOfPages
+    
+    @if (Model.atPage < Model.numberOfPages - 1)
+    {
+        <form method="post" action="Books3" id="prev">
+            @Html.HiddenFor(m => m.atPage, new {Value = Model.atPage + 1})
+            @Html.HiddenFor(m => m.numberOfPages, new {Value = Model.numberOfPages})
+            <button type="submit">Next</button>
+        </form>
+    }
+    <br/>
+    
+</div>

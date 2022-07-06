@@ -33,7 +33,7 @@ namespace Bookish.ConsoleApp
             var borrowedBooks = db.getBorrowedBooks(account);
             foreach (var book in borrowedBooks)
             {
-                Console.WriteLine($"Book id: {book.BookID}\t{db.FindBookByID(book.BookID).BookName}");
+                //Console.WriteLine($"Book id: {book.BookID}\t{db.FindBookByID(book.BookID).BookName}");
             }
 
             //var b = new Book("Capra cu 3 iezi", "Autor", 0,"33333",1);
@@ -43,8 +43,10 @@ namespace Bookish.ConsoleApp
             var all = db.GetAllAvailableBooks();
             foreach (var book in all)
             {
-                Console.WriteLine($"Book: {book.BookName} Cop: {book.NoCopies}");
+                //Console.WriteLine($"Book: {book.BookName} Cop: {book.NoCopies}");
             }
+            
+            Console.WriteLine(db.GetNumberOfPages());
         }
     }
 }
