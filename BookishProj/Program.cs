@@ -37,8 +37,8 @@ namespace Bookish.ConsoleApp
             }
 
             //var b = new Book("Capra cu 3 iezi", "Autor", 0,"33333",1);
-            var b = new Book("Oaia cu 3 iezi", "Capra", 20,"22222",1);
-            db.AddBook(b);
+            //var b = new Book("Oaia cu 3 iezi", "Capra", 20,"22222",1);
+            //db.AddBook(b);
 
             var all = db.GetAllAvailableBooks();
             foreach (var book in all)

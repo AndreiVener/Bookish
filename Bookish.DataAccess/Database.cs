@@ -9,16 +9,16 @@ namespace Bookish.DataAccess
 {
     public class Database
     {
-        private static IDbConnection db;
+        private static IDbConnection _db;
         
         public Database()
         {
-            db = new SqlConnection("Server=tcp:SEASLUG,1433;User Id=bookishService; Password=abcd;");
+            _db = new SqlConnection("Server=tcp:SEASLUG,1433;User Id=bookishService; Password=abcd;");
         }
 
         public List<Account> GetAllAccounts()
         {
-            var accounts = (List<Account>)db.Query<Account>("SELECT * FROM bookish.dbo.Accounts");
+            var accounts = (List<Account>)_db.Query<Account>("SELECT * FROM bookish.dbo.Accounts");
 
             return accounts.ToList();
         }
@@ -26,7 +26,7 @@ namespace Bookish.DataAccess
         public Book FindBookByName(string name)
         {
             var sqlFindBookByName = " SELECT * FROM bookish.dbo.books WHERE bookName = @bookName";
-            List<Book> foundBooks = (List<Book>)db.Query<Book>(sqlFindBookByName, new
+            List<Book> foundBooks = (List<Book>)_db.Query<Book>(sqlFindBookByName, new
             {
                 bookName = name
             });
@@ -36,7 +36,7 @@ namespace Bookish.DataAccess
         public DateTime GetBookDueDate(Account account, Book book)
         {
             var sqlFindBookByName = " SELECT dueDate FROM bookish.dbo.borrowedBooks WHERE bookID = @bookID AND userID = @userID";
-            List<DateTime> foundDueDates = (List<DateTime>)db.Query<DateTime>(sqlFindBookByName, new
+            List<DateTime> foundDueDates = (List<DateTime>)_db.Query<DateTime>(sqlFindBookByName, new
             {
                 userID = account.AccountID,
                 bookID = book.BookID
@@ -47,7 +47,7 @@ namespace Bookish.DataAccess
         public Book FindBookByID(int id)
         {
             var sqlFindBook = " SELECT * FROM bookish.dbo.books Where bookID = @bookID";
-            var foundBooks = db.Query<Book>(sqlFindBook, new
+            var foundBooks = _db.Query<Book>(sqlFindBook, new
             {
                 bookID = id
             });
@@ -57,7 +57,7 @@ namespace Bookish.DataAccess
         {
             string sql = "INSERT INTO bookish.dbo.books(bookName, bookAuthor, noCopies, ISBN, bookType) VALUES (@bookName, @bookAuthor, @noCopies, @ISBN, @bookType)";
 
-            db.Execute(sql, new
+            _db.Execute(sql, new
             {
                 bookName = book.BookName,
                 bookAuthor = book.BookAuthor,
@@ -73,7 +73,7 @@ namespace Bookish.DataAccess
         {
             string sql = "UPDATE bookish.dbo.books SET bookName=@bookName, bookAuthor=@bookAuthor, noCopies=@noCopies, ISBN=@ISBN, bookType=@bookType WHERE bookID=@bookID";
 
-            db.Execute(sql, new
+            _db.Execute(sql, new
             {
                 bookName = newBook.BookName,
                 bookAuthor = newBook.BookAuthor,
@@ -86,15 +86,25 @@ namespace Bookish.DataAccess
 
         public List<Book> GetAllAvailableBooks()
         {
-            var sqlSelectAllAvailableBooks = "SELECT * FROM bookish.dbo.books WHERE noCopies > 0";
-            List<Book> availableBooks = (List<Book>)db.Query<Book>(sqlSelectAllAvailableBooks);
+            var sqlSelectAllAvailableBooks = "SELECT * FROM bookish.dbo.books WHERE noCopies > 0 ORDER BY bookName";
+            List<Book> availableBooks = (List<Book>)_db.Query<Book>(sqlSelectAllAvailableBooks);
             return availableBooks;
 
         }
+
+        public List<Book> GetPaginatedAvailableBooks(int page)
+        {
+            //each page contains 5 books
+            var sqlSelectPaginatedAvailableBooks = "SELECT * FROM bookish.dbo.books WHERE noCopies > 0 ORDER BY bookName OFFSET " 
+                                                   + (page * 5) + " ROWS FETCH NEXT 5 ROWS ONLY";
+            List<Book> availableBooks = (List<Book>)_db.Query<Book>(sqlSelectPaginatedAvailableBooks);
+            return availableBooks;
+        }
+        
         public void AddUser(Account account)
         {
             string sql = "INSERT INTO bookish.dbo.Accounts (AccountName,AccountPassword) Values (@AccountName,@AccountPassword)";
-            db.Execute(sql, new
+            _db.Execute(sql, new
             {
                 AccountName = account.AccountName,
                 AccountPassword = account.AccountPassword
@@ -104,7 +114,7 @@ namespace Bookish.DataAccess
         public List<Account> findUsers(string name)
         {
             var sqlFindAccountsName = " SELECT * FROM bookish.dbo.Accounts Where AccountName = @AccountName";
-            List<Account> foundUsers = (List<Account>)db.Query<Account>(sqlFindAccountsName, new
+            List<Account> foundUsers = (List<Account>)_db.Query<Account>(sqlFindAccountsName, new
             {
                 AccountName = name
             });
@@ -114,7 +124,7 @@ namespace Bookish.DataAccess
         public List<BorrowedBooks> getBorrowedBooks(Account account)
         {
             var sqlFindBorrowedBooks = "SELECT * FROM bookish.dbo.borrowedBooks WHERE userID = @userID";
-            List<BorrowedBooks> borrowedBooks = (List<BorrowedBooks>)db.Query<BorrowedBooks>(sqlFindBorrowedBooks, new
+            List<BorrowedBooks> borrowedBooks = (List<BorrowedBooks>)_db.Query<BorrowedBooks>(sqlFindBorrowedBooks, new
             {
                 userID = account.AccountID
             });
@@ -133,7 +143,7 @@ namespace Bookish.DataAccess
             UpdateBook(book.BookID, book);
             
             string sql = "INSERT INTO bookish.dbo.borrowedBooks (userID, bookID, borrowDate, dueDate) Values (@userID,@bookID,@borrowDate,@dueDate)";
-            db.Execute(sql, new
+            _db.Execute(sql, new
             {
                 userID = account.AccountID,
                 bookID = book.BookID,
