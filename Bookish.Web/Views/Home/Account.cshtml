@@ -1,0 +1,31 @@
+﻿@model Bookish.Web.Models.BorrowedBooksModel
+
+<div>
+
+    <p>Account</p>
+    
+    <ul>
+        
+        @foreach (var book in Model.BorrowedBooksList)
+        {
+            <li style="background-color: springgreen; border-radius: 10px; margin: 2rem; padding: 1rem;">
+                @book.Value.BookName
+                written by
+                @book.Value.BookAuthor
+                , borrowed on @book.Key.BorrowDate
+                due to @book.Key.DueDate
+
+                <form method="post" action="Account2" id="@book.Key.BookID">
+                    <input type="number" name="borrowedBookID" value="@book.Key.BookID" hidden>
+                    <input type="number" name="accountID" value="@book.Key.UserID" hidden>
+                    <button type="submit">
+                        UnBorrow
+                    </button>
+
+                </form>
+            </li>
+        }
+        
+    </ul>
+    
+</div>

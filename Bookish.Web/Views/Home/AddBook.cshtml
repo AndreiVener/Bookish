@@ -1,0 +1,23 @@
+﻿
+
+<form id="addbook_form" class="form_class" action="AddBook2" method="post" style="background-color: lightgrey; border-radius: 10px; margin: 2rem; padding: 1rem;">
+    
+    <div class="form_div">
+        <label>Book name:</label>
+        <input class="field_class" name="name" type="text" autofocus required>
+        <br/>
+        <label>Book author:</label>
+        <input class="field_class" name="author" type="text" required>
+        <br/>
+        <label>Number of copies:</label>
+        <input class="field_class" name="nocopies" type="number" required>
+        <br/>
+        <label>ISBN:</label>
+        <input class="field_class" name="isbn" type="text" required>
+        <br/>
+        <input type="radio" id="Paper" name="booktype" value="Paper" checked><label for="Paper">Paper</label>
+        <input type="radio" id="Audio" name="booktype" value="Audio"><label for="Audio">Audio</label>
+        <button class="submit_class" type="submit" form="addbook_form">Register</button>
+    </div>
+
+</form>

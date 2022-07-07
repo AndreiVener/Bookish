@@ -44,6 +44,7 @@
         <Compile Include="Account.cs" />
         <Compile Include="Book.cs" />
         <Compile Include="BookType.cs" />
+        <Compile Include="BorrowedBooks.cs" />
         <Compile Include="Database.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>

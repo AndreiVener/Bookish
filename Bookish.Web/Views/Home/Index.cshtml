@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<form id="login_form" class="form_class" action="Home/Books" method="post" style="background-color: lightgrey; border-radius: 10px; margin: 2rem; padding: 1rem;">
+    <div class="form_div" style="padding: 2rem;">
+        <label style="padding-bottom: 1rem">Login:</label>
+        <input class="field_class" name="login_txt" type="text" placeholder="Username" autofocus>
+        <br/>
+        <label>Password:</label>
+        <input id="pass" class="field_class" name="password_txt" type="password" placeholder="Password">
+        <br/>
+        <button class="submit_class" type="submit" form="login_form" onclick="return validateLogin()">Login</button>
+        <br/>
+    </div>
+    <div class="info_div">
+        <p>You don't have an account? <a href="Home/Register">Register!</a></p>
+    </div>
+</form>
