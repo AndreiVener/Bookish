@@ -4,6 +4,16 @@
 
     <p>Account</p>
     
+    <br/>
+    
+    <form method="post" action="/Home/Logout">
+        <button type="submit">
+            Logout
+        </button>
+    </form>
+    
+    <br/>
+    
     <ul>
         
         @foreach (var book in Model.BorrowedBooksList)
@@ -15,9 +25,8 @@
                 , borrowed on @book.Key.BorrowDate
                 due to @book.Key.DueDate
 
-                <form method="post" action="Account2" id="@book.Key.BookID">
+                <form method="post" action="UnBorrow" id="@book.Key.BookID">
                     <input type="number" name="borrowedBookID" value="@book.Key.BookID" hidden>
-                    <input type="number" name="accountID" value="@book.Key.UserID" hidden>
                     <button type="submit">
                         UnBorrow
                     </button>

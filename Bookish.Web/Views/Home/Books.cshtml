@@ -5,45 +5,59 @@
     
     <form method="post" action="Books">Search:<input name="search" type="text"/><button type="submit">Search</button></form>
     
-    <ul>
+    <div style="display: flex; flex-direction: column">
         
-        @foreach (var book in Model.books)
-        {
-            <li style="background-color: springgreen; border-radius: 10px; margin: 2rem; padding: 1rem;">
-                @book.BookName
-                written by
-                @book.BookAuthor
-                | no of copies:
-                @book.NoCopies
-
-                <form id="@book.BookID">
-
-                    <button type="submit">
-                        Borrow
-                    </button>
-
-                </form>
-            </li>
-        }
-        
-    </ul>
+      @foreach (var book in Model.books)
+            {
+                <div style="margin-top: 10px; display: flex; border-radius: 5px">
+               
+                    <div style="display: flex">
+                        <form id="@book.BookID" action="Borrow" style="padding-right: 10px">
+                            <input type="number" name="bookID" value="@book.BookID" hidden/>
+                            <button type="submit">
+                                
+                                Borrow
+                            </button>
+    
+                        </form>
+                        
+                        <form id="@book.BookID" action="ViewBook">
+                            <input type="number" name="bookID" value="@book.BookID" hidden/>
+                            <button type="submit">
+                                See details
+                            </button>
+    
+                        </form>
+                    </div>
+                    <div style="padding-left: 20px">
+                        @book.BookName
+                        written by
+                        @book.BookAuthor
+                        | no of copies:
+                        @book.NoCopies
+                    </div>
+                    
+                </div>
+            }   
+    </div>
+    
     
     @if (Model.atPage > 0)
     {
-        <form method="post" action="Books3" id="prev">
+        <form method="post" action="Books" id="prev">
             @Html.HiddenFor(m => m.atPage, new {Value = Model.atPage - 1})
             @Html.HiddenFor(m => m.numberOfPages, new {Value = Model.numberOfPages})
             <button type="submit">Previous</button>
         </form>
     }
     
-    
-    @Model.atPage
-    @Model.numberOfPages
+    <div align="center">
+    <p>Page  @(Model.atPage+1) of @Model.numberOfPages</p>
+    </div>
     
     @if (Model.atPage < Model.numberOfPages - 1)
     {
-        <form method="post" action="Books3" id="prev">
+        <form method="post" action="Books" id="prev">
             @Html.HiddenFor(m => m.atPage, new {Value = Model.atPage + 1})
             @Html.HiddenFor(m => m.numberOfPages, new {Value = Model.numberOfPages})
             <button type="submit">Next</button>

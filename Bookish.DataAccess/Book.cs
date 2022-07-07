@@ -13,6 +13,10 @@
         public string ISBN { get; set; }
         
         public int BookType { get; set; }
+        
+        public string ImageURL { get; set; }
+        
+        public string Description { get; set; }
 
         public Book()
         {

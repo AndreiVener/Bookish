@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.EnterpriseServices.Internal;
 using Bookish.DataAccess;
 
@@ -14,6 +15,7 @@ namespace Bookish.Web.Models
         public BooksModel()
         {
             books = new List<Book>();
+            atPage = 0;
         }
     }
 }

@@ -23,14 +23,12 @@ namespace Bookish.DataAccess
             return accounts.ToList();
         }
 
-        public Book FindBookByName(string name)
+        public List<Book> FindBookByName(string name)
         {
-            var sqlFindBookByName = " SELECT * FROM bookish.dbo.books WHERE bookName = @bookName";
-            List<Book> foundBooks = (List<Book>)_db.Query<Book>(sqlFindBookByName, new
-            {
-                bookName = name
-            });
-            return foundBooks.First();
+
+            var sqlFindBookByName = $" SELECT * FROM bookish.dbo.books WHERE bookName LIKE '%{name}%' OR bookAuthor LIKE '%{name}%'";
+            List<Book> foundBooks = (List<Book>)_db.Query<Book>(sqlFindBookByName);
+            return foundBooks;
         }
 
         public DateTime GetBookDueDate(Account account, Book book)
@@ -43,19 +41,40 @@ namespace Bookish.DataAccess
             });
             return foundDueDates.First();
         }
-        
+
         public Book FindBookByID(int id)
         {
             var sqlFindBook = " SELECT * FROM bookish.dbo.books Where bookID = @bookID";
             var foundBooks = _db.Query<Book>(sqlFindBook, new
             {
                 bookID = id
-            });
-            return foundBooks.First();
+            }).ToList();
+            if (foundBooks.Count > 0)
+            {
+                return foundBooks.First();
+            }
+
+            return null;
         }
+
+        public Account FindUserByID(int id)
+        {
+            var sqlFindAccount = " SELECT * FROM bookish.dbo.accounts Where accountID = @bookID";
+            var foundAccounts = _db.Query<Account>(sqlFindAccount, new
+            {
+                bookID = id
+            }).ToList();
+            if (foundAccounts.Count > 0)
+            {
+                return foundAccounts.First();
+            }
+
+            return null;
+        }
+        
         public bool AddBook(Book book)
         {
-            string sql = "INSERT INTO bookish.dbo.books(bookName, bookAuthor, noCopies, ISBN, bookType) VALUES (@bookName, @bookAuthor, @noCopies, @ISBN, @bookType)";
+            string sql = "INSERT INTO bookish.dbo.books(bookName, bookAuthor, noCopies, ISBN, bookType, description, imageURL) VALUES (@bookName, @bookAuthor, @noCopies, @ISBN, @bookType, @description, @imageURL)";
 
             _db.Execute(sql, new
             {
@@ -63,7 +82,9 @@ namespace Bookish.DataAccess
                 bookAuthor = book.BookAuthor,
                 noCopies = book.NoCopies,
                 ISBN = book.ISBN,
-                BookType = book.BookType
+                BookType = book.BookType,
+                description = book.Description,
+                imageURL = book.ImageURL
             });
 
             return true;
@@ -113,12 +134,29 @@ namespace Bookish.DataAccess
 
         public List<Account> findUsers(string name)
         {
-            var sqlFindAccountsName = " SELECT * FROM bookish.dbo.Accounts Where AccountName = @AccountName";
+            var sqlFindAccountsName = " SELECT * FROM bookish.dbo.Accounts WHERE AccountName = @AccountName";
             List<Account> foundUsers = (List<Account>)_db.Query<Account>(sqlFindAccountsName, new
             {
                 AccountName = name
             });
             return foundUsers;
+        }
+        
+        public Account loginUser(string name, string password)
+        {
+            var sqlFindAccount = " SELECT * FROM bookish.dbo.Accounts WHERE AccountName = @AccountName AND AccountPassword = @AccountPassword";
+            List<Account> foundUsers = (List<Account>)_db.Query<Account>(sqlFindAccount, new
+            {
+                AccountName = name,
+                AccountPassword = password
+            });
+
+            if (foundUsers.Count > 0)
+            {
+                return foundUsers.First();
+            }
+
+            return null;
         }
 
         public List<BorrowedBooks> getBorrowedBooks(Account account)
@@ -138,6 +176,16 @@ namespace Bookish.DataAccess
                 return false;
             }
 
+            List<BorrowedBooks> borrowedBooks = getBorrowedBooks(account);
+
+            foreach (var borrowedBook in borrowedBooks)
+            {
+                if (borrowedBook.BookID == book.BookID)
+                {
+                    return false;
+                }
+            }
+
             book.NoCopies--;
             
             UpdateBook(book.BookID, book);
@@ -154,11 +202,36 @@ namespace Bookish.DataAccess
             return true;
         }
 
+        public bool unBorrowBook(Account account, Book borrowedBook)
+        {
+            string sql = "DELETE FROM bookish.dbo.borrowedBooks WHERE userID = @userID AND bookID = @bookID";
+            _db.Execute(sql, new
+            {
+                userID = account.AccountID,
+                bookID = borrowedBook.BookID
+            });
+
+            borrowedBook.NoCopies++;
+            UpdateBook(borrowedBook.BookID, borrowedBook);
+
+            return true;
+        }
+
         public int GetNumberOfPages()
         {
-            var sql = "SELECT COUNT(*) FROM bookish.dbo.books";
+            var sql = "SELECT COUNT(*) FROM bookish.dbo.books WHERE noCopies > 0";
             List<int> numberOfPages = (List<int>)_db.Query<int>(sql);
             return (int)Math.Ceiling((float)numberOfPages.First()/5);
+        }
+        
+        public int GetNumberOfPages(string search)
+        {
+            var sqlFindBookByName = " SELECT COUNT(*) FROM bookish.dbo.books WHERE bookName = @bookName";
+            List<int> foundBooks = (List<int>)_db.Query<int>(sqlFindBookByName, new
+            {
+                bookName = search
+            });
+            return foundBooks.First();
         }
     }
 }

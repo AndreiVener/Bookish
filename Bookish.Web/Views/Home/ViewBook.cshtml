@@ -1,0 +1,27 @@
+﻿@model Bookish.DataAccess.Book
+
+<div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <br/>
+                <h1>Title: @Model.BookName</h1>
+                <p>Author: @Model.BookAuthor</p>
+                <p>Description: @Model.Description</p>
+                <p>Number of available copies: @Model.NoCopies</p>
+                <p>ISBN: @Model.ISBN</p>
+                <br/>
+            </div>
+            <div class="col">
+                <div>
+                <img src="@Model.ImageURL"  width="50%">
+                </div>
+            </div>
+        </div>
+
+
+     
+    </div>
+
+</div>
